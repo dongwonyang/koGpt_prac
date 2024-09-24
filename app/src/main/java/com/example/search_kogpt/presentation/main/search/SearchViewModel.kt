@@ -1,5 +1,6 @@
 package com.example.search_kogpt.presentation.main.search
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.search_kogpt.domain.repository.KoGptRepository
@@ -22,12 +23,13 @@ class SearchViewModel @Inject constructor(
             val list = koGptRepository.koGptGenerate(prompt, 300).generations.map{
                 SearchListItem(SearchType.ANSWER, it.text)
             }
+            Log.d("list", list.toString())
 
             if(uiState.value is SearchUiState.NormalUiState) {
                 _uiState.update { prev ->
                     (prev as SearchUiState.NormalUiState)
                     prev.copy(
-                        list = prev.list + list
+                        list = prev.list + SearchListItem(SearchType.PROMPT, prompt) + list
                     )
                 }
             }

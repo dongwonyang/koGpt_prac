@@ -5,6 +5,9 @@ sealed interface SearchUiState {
     data class NormalUiState(val list: List<SearchListItem>) : SearchUiState
 
     companion object {
-        fun init(): SearchUiState = NormalUiState(emptyList())
+        fun init(): SearchUiState = NormalUiState(listOf(
+            SearchListItem(SearchType.PROMPT, "dd"),
+            SearchListItem(SearchType.ANSWER, "qq")
+        ))
     }
 }

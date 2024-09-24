@@ -7,9 +7,11 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
+import java.util.concurrent.TimeUnit
 
 @InstallIn(SingletonComponent::class)
 @Module
@@ -24,6 +26,12 @@ class NetworkModule {
         authorizationInterceptor: AuthorizationInterceptor
     ): OkHttpClient = OkHttpClient().newBuilder()
         .addInterceptor(authorizationInterceptor)
+        .addInterceptor(HttpLoggingInterceptor().apply {
+            this.level = HttpLoggingInterceptor.Level.BODY
+        })
+        .connectTimeout(300, TimeUnit.SECONDS) // 연결 타임아웃
+        .readTimeout(300, TimeUnit.SECONDS)    // 읽기 타임아웃
+        .writeTimeout(300, TimeUnit.SECONDS)   // 쓰기 타임아웃
         .build()
 
 
