@@ -8,8 +8,11 @@ class AuthorizationInterceptor: Interceptor {
         val REST_API_KEY = "d6fd4a43781241e9ca80ad0218dbc78a"
         val newRequest = chain.request().newBuilder()
             .addHeader(
+                "Content-Type",
+                "application/json")
+            .addHeader(
                 "Authorization",
-                " KakaoAK ${REST_API_KEY}"
+                "KakaoAK ${REST_API_KEY}"
             ).build()
 
         return chain.proceed(newRequest)
