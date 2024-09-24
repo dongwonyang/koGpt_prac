@@ -4,7 +4,9 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.search_kogpt.databinding.ActivitySearchBinding
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private val binding: ActivitySearchBinding by lazy {
         ActivitySearchBinding.inflate(layoutInflater)
@@ -23,7 +25,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun initView() = with(binding) {
         vp.adapter = vpAdapter
-
         TabLayoutMediator(tlTop, vp) { tab, positon ->
         }
     }
