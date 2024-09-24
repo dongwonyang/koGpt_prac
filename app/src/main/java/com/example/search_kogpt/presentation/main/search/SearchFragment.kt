@@ -38,6 +38,9 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+        initViewModel()
+
+        generateKoGpt()
     }
 
     private fun initView() = with(binding) {
@@ -45,10 +48,18 @@ class SearchFragment : Fragment() {
         rvSearch.layoutManager = LinearLayoutManager(requireContext())
     }
 
+    private fun generateKoGpt(){
+        binding.btnSearch.setOnClickListener {
+            viewModel.generateKoGpt(binding.etSearch.text.toString())
+        }
+    }
+
     private fun initViewModel() = with(viewModel) {
         viewLifecycleOwner.lifecycleScope.launch {
             uiState.flowWithLifecycle(lifecycle)
-                .collectLatest { uiState -> }
+                .collectLatest { uiState ->
+                    onBind(uiState)
+                }
         }
     }
 
