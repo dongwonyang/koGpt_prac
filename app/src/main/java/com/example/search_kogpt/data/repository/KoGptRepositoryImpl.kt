@@ -4,8 +4,9 @@ import com.example.search_kogpt.data.remote.KoGptRemoteDatasource
 import com.example.search_kogpt.domain.model.KoGptEntity
 import com.example.search_kogpt.domain.model.toEntity
 import com.example.search_kogpt.domain.repository.KoGptRepository
+import javax.inject.Inject
 
-class KoGptRepositoryImpl(
+class KoGptRepositoryImpl @Inject constructor(
     private val remoteDatasource: KoGptRemoteDatasource
 ) : KoGptRepository {
     override suspend fun koGptGenerate(
