@@ -23,7 +23,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun initView() = with(binding) {
         vp.adapter = vpAdapter
-
         TabLayoutMediator(tlTop, vp) { tab, positon ->
         }
     }
